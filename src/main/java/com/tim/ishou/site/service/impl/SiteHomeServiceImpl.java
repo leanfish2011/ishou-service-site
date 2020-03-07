@@ -1,6 +1,7 @@
 package com.tim.ishou.site.service.impl;
 
 import com.tim.ishou.site.dao.SiteHomeMapper;
+import com.tim.ishou.site.exception.ParameterException;
 import com.tim.ishou.site.po.SiteHome;
 import com.tim.ishou.site.po.SiteHomeExample;
 import com.tim.ishou.site.po.SiteHomeExample.Criteria;
@@ -101,6 +102,10 @@ public class SiteHomeServiceImpl implements SiteHomeService {
 
     if (start != null && end != null) {
       criteria.andCreateTimeBetween(start, end);
+    }
+
+    if (start != null && end != null && start.after(end)) {
+      throw new ParameterException("开始时间不能大于结束时间");
     }
 
     siteHomeExample.setOrderByClause(" create_time asc,sort_num asc");

@@ -1,6 +1,8 @@
 package com.tim.ishou.site.vo;
 
+import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author：tim
@@ -9,6 +11,12 @@ import lombok.Data;
  */
 @Data
 public class SitePersonalSearchReq {
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private Date createTimeStart;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private Date createTimeEnd;
 
   private String name;
 
