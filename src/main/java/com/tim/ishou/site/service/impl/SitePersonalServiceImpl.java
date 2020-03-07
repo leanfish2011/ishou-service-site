@@ -1,7 +1,7 @@
 package com.tim.ishou.site.service.impl;
 
+import com.tim.exception.ParameterException;
 import com.tim.ishou.site.dao.SitePersonalMapper;
-import com.tim.ishou.site.exception.ParameterException;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.po.SitePersonalExample;
 import com.tim.ishou.site.po.SitePersonalExample.Criteria;
