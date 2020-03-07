@@ -10,8 +10,6 @@ import lombok.Data;
 @Data
 public class SitePersonalAdd {
 
-  private String id;
-
   private String name;
 
   private String url;
@@ -19,4 +17,9 @@ public class SitePersonalAdd {
   private String remark;
 
   private String tag;
+
+  /**
+   * 发布到首页
+   */
+  private Boolean isPost;
 }

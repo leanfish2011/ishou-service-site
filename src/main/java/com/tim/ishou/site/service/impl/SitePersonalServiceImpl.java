@@ -4,6 +4,7 @@ import com.tim.ishou.site.dao.SitePersonalMapper;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.po.SitePersonalExample;
 import com.tim.ishou.site.po.SitePersonalExample.Criteria;
+import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.service.SitePersonalService;
 import com.tim.ishou.site.vo.SitePersonalAdd;
 import com.tim.ishou.site.vo.SitePersonalSearchReq;
@@ -12,6 +13,7 @@ import com.tim.ishou.site.vo.SitePersonalUpdate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,14 @@ import org.springframework.stereotype.Service;
  * @description：
  */
 @Service
+@Slf4j
 public class SitePersonalServiceImpl implements SitePersonalService {
 
   @Autowired
   private SitePersonalMapper sitePersonalMapper;
+
+  @Autowired
+  private SiteHomeService siteHomeService;
 
   @Override
   public boolean add(SitePersonalAdd sitePersonalAdd) {
@@ -35,6 +41,10 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     sitePersonal.setId(UUID.randomUUID().toString());
     //TODO
     sitePersonal.setCreatorId("1");
+
+    if (sitePersonalAdd.getIsPost()) {
+      siteHomeService.add(sitePersonal);
+    }
 
     return sitePersonalMapper.insertSelective(sitePersonal) > 0 ? true : false;
   }
@@ -50,6 +60,9 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     BeanUtils.copyProperties(sitePersonalUpdate, sitePersonal);
     //TODO
     sitePersonal.setModifierId("1");
+    if (sitePersonalUpdate.getIsPost()) {
+      siteHomeService.add(sitePersonal);
+    }
 
     return sitePersonalMapper.updateByPrimaryKeySelective(sitePersonal) > 0 ? true : false;
   }
@@ -97,4 +110,5 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 
     return sitePersonalSearchResp;
   }
+
 }

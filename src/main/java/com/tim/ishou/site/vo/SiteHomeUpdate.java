@@ -4,11 +4,11 @@ import lombok.Data;
 
 /**
  * @author：tim
- * @date：20-3-7 下午5:35
+ * @date：20-3-7 下午9:05
  * @description：
  */
 @Data
-public class SitePersonalUpdate {
+public class SiteHomeUpdate {
 
   private String id;
 
@@ -20,8 +20,6 @@ public class SitePersonalUpdate {
 
   private String tag;
 
-  /**
-   * 发布到首页
-   */
-  private Boolean isPost;
+  private Integer sortNum;
+
 }
