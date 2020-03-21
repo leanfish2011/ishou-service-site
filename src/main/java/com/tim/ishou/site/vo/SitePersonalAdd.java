@@ -21,5 +21,5 @@ public class SitePersonalAdd {
   /**
    * 发布到首页
    */
-  private Boolean isPost;
+  private Boolean isPost = false;
 }
