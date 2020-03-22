@@ -63,6 +63,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     //TODO
     sitePersonal.setModifierId("1");
     if (sitePersonalUpdate.getIsPost()) {
+      sitePersonal.setCreatorId("1");
       siteHomeService.add(sitePersonal);
     }
 
@@ -105,7 +106,11 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     }
 
     if (start != null && end != null && start.after(end)) {
-      throw new ParameterException("开始时间不能大于结束时间");
+      try {
+        throw new ParameterException("开始时间不能大于结束时间");
+      } catch (ParameterException e) {
+        e.printStackTrace();
+      }
     }
 
     sitePersonalExample.setOrderByClause(" create_time asc,sort_num asc");

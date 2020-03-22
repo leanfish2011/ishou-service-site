@@ -9,7 +9,6 @@ import com.tim.message.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,7 +53,7 @@ public class SitePersonalController {
 
   @ApiOperation(value = "修改网站")
   @RequestMapping(method = RequestMethod.PUT)
-  public Message update(SitePersonalUpdate sitePersonalUpdate) {
+  public Message update(@RequestBody SitePersonalUpdate sitePersonalUpdate) {
     boolean isSuccess = sitePersonalService.update(sitePersonalUpdate);
     if (!isSuccess) {
       return Message.error();

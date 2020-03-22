@@ -54,10 +54,4 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
-  // 跨域
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
-  }
-
 }
