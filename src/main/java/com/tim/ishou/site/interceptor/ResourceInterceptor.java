@@ -26,7 +26,7 @@ public class ResourceInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
       Object handler) {
-    Message message = accountFeignClient.permission(request.getRequestURI());
+    Message message = accountFeignClient.permission(request.getRequestURI(), request.getMethod());
     if (message.getCode() == MainCode.SUCCESS) {
       return true;
     }
