@@ -1,6 +1,8 @@
 package com.tim.ishou.site.service.impl;
 
+import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.exception.ParameterException;
+import com.tim.ishou.site.component.AccountInfo;
 import com.tim.ishou.site.dao.SitePersonalMapper;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.po.SitePersonalExample;
@@ -36,13 +38,19 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   @Autowired
   private SiteHomeService siteHomeService;
 
+  @Autowired
+  private AccountInfo accountInfo;
+
   @Override
   public boolean add(SitePersonalAdd sitePersonalAdd) {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalAdd, sitePersonal);
     sitePersonal.setId(UUID.randomUUID().toString());
-    //TODO
-    sitePersonal.setCreatorId("1");
+    TokenModel tokenModel = accountInfo.getUserInfo();
+    if (tokenModel == null) {
+      return false;
+    }
+    sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
 
     if (sitePersonalAdd.getIsPost()) {
       siteHomeService.add(sitePersonal);
@@ -60,10 +68,13 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   public boolean update(SitePersonalUpdate sitePersonalUpdate) {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalUpdate, sitePersonal);
-    //TODO
-    sitePersonal.setModifierId("1");
+    TokenModel tokenModel = accountInfo.getUserInfo();
+    if (tokenModel == null) {
+      return false;
+    }
+    sitePersonal.setModifierId(tokenModel.getLoginResp().getUserId());
     if (sitePersonalUpdate.getIsPost()) {
-      sitePersonal.setCreatorId("1");
+      sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
       siteHomeService.add(sitePersonal);
     }
 
@@ -112,6 +123,12 @@ public class SitePersonalServiceImpl implements SitePersonalService {
         e.printStackTrace();
       }
     }
+
+    TokenModel tokenModel = accountInfo.getUserInfo();
+    if (tokenModel == null) {
+      return null;
+    }
+    criteria.andCreatorIdEqualTo(tokenModel.getLoginResp().getUserId());
 
     sitePersonalExample.setOrderByClause(" create_time asc,sort_num asc");
 

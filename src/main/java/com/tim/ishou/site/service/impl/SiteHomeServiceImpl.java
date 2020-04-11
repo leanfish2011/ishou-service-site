@@ -1,5 +1,6 @@
 package com.tim.ishou.site.service.impl;
 
+import com.tim.auth.sdk.constant.AuthConstant;
 import com.tim.exception.ParameterException;
 import com.tim.ishou.site.dao.SiteHomeMapper;
 import com.tim.ishou.site.po.SiteHome;
@@ -47,8 +48,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(siteHomeAdd, siteHome);
     siteHome.setId(UUID.randomUUID().toString());
-    //TODO
-    siteHome.setCreatorId("0");
+    siteHome.setCreatorId(AuthConstant.USER_ADMIN_ID);
 
     return siteHomeMapper.insertSelective(siteHome) > 0 ? true : false;
   }
@@ -58,8 +58,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(siteHomeUpdate, siteHome);
 
-    //TODO
-    siteHome.setModifierId("1");
+    siteHome.setModifierId(AuthConstant.USER_ADMIN_ID);
 
     return siteHomeMapper.updateByPrimaryKeySelective(siteHome) > 0 ? true : false;
   }
