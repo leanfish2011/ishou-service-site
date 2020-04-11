@@ -1,6 +1,8 @@
 package com.tim.ishou.site.interceptor;
 
 import com.tim.auth.sdk.feign.AccountFeignClient;
+import com.tim.auth.sdk.vo.TokenModel;
+import com.tim.ishou.site.component.AccountInfo;
 import com.tim.message.MainCode;
 import com.tim.message.Message;
 import com.tim.util.ResponseUtil;
@@ -23,12 +25,21 @@ public class LoginInterceptor implements HandlerInterceptor {
   @Autowired
   private AccountFeignClient accountFeignClient;
 
+  @Autowired
+  private AccountInfo accountInfo;
+
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
       Object handler) {
     //检查token是否有效
     Message message = accountFeignClient.check();
-    if (message.getCode() == MainCode.SUCCESS) {
+    if (message.getCode().equals(MainCode.SUCCESS)) {
+      //查询用户信息
+      Message<TokenModel> tokenModelMessage = accountFeignClient.profile();
+      if (tokenModelMessage.getCode().equals(MainCode.SUCCESS)) {
+        accountInfo.setTokenModel(tokenModelMessage.getData());
+      }
+
       return true;
     }
 

@@ -1,12 +1,8 @@
 package com.tim.ishou.site.component;
 
-import com.tim.auth.sdk.feign.AccountFeignClient;
 import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.exception.type.CommonException;
 import com.tim.exception.type.ServiceException;
-import com.tim.message.MainCode;
-import com.tim.message.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +15,6 @@ import org.springframework.stereotype.Component;
 @Lazy
 public class AccountInfo {
 
-  @Autowired
-  private AccountFeignClient accountFeignClient;
-
   private TokenModel tokenModel;
 
   public TokenModel getUserInfo() throws CommonException {
@@ -29,12 +22,11 @@ public class AccountInfo {
       return tokenModel;
     }
 
-    Message<TokenModel> tokenModelMessage = accountFeignClient.profile();
-    if (tokenModelMessage.getCode().equals(MainCode.SUCCESS)) {
-      tokenModel = tokenModelMessage.getData();
-      return tokenModelMessage.getData();
-    }
-
-    throw new ServiceException(tokenModelMessage.getMsg());
+    throw new ServiceException("未找到用户");
   }
+
+  public void setTokenModel(TokenModel tokenModel) {
+    this.tokenModel = tokenModel;
+  }
+
 }
