@@ -1,7 +1,8 @@
 package com.tim.ishou.site.service.impl;
 
 import com.tim.auth.sdk.constant.AuthConstant;
-import com.tim.exception.ParameterException;
+import com.tim.exception.type.CommonException;
+import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.dao.SiteHomeMapper;
 import com.tim.ishou.site.po.SiteHome;
 import com.tim.ishou.site.po.SiteHomeExample;
@@ -69,7 +70,8 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq) {
+  public List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq)
+      throws CommonException {
     SiteHomeExample siteHomeExample = new SiteHomeExample();
     Criteria criteria = siteHomeExample.createCriteria();
 
@@ -104,11 +106,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     }
 
     if (start != null && end != null && start.after(end)) {
-      try {
-        throw new ParameterException("开始时间不能大于结束时间");
-      } catch (ParameterException e) {
-        e.printStackTrace();
-      }
+      throw new ParameterException("开始时间不能大于结束时间");
     }
 
     siteHomeExample.setOrderByClause(" create_time asc,sort_num asc");

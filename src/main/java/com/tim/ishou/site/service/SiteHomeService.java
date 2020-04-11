@@ -1,5 +1,6 @@
 package com.tim.ishou.site.service;
 
+import com.tim.exception.type.CommonException;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.vo.SiteHomeAdd;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
@@ -22,7 +23,7 @@ public interface SiteHomeService {
 
   boolean delete(String id);
 
-  List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq);
+  List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq) throws CommonException;
 
   SiteHomeSearchResp select(String id);
 }

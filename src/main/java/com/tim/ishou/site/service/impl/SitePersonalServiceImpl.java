@@ -1,7 +1,8 @@
 package com.tim.ishou.site.service.impl;
 
 import com.tim.auth.sdk.vo.TokenModel;
-import com.tim.exception.ParameterException;
+import com.tim.exception.type.CommonException;
+import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.component.AccountInfo;
 import com.tim.ishou.site.dao.SitePersonalMapper;
 import com.tim.ishou.site.po.SitePersonal;
@@ -42,14 +43,11 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   private AccountInfo accountInfo;
 
   @Override
-  public boolean add(SitePersonalAdd sitePersonalAdd) {
+  public boolean add(SitePersonalAdd sitePersonalAdd) throws CommonException {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalAdd, sitePersonal);
     sitePersonal.setId(UUID.randomUUID().toString());
     TokenModel tokenModel = accountInfo.getUserInfo();
-    if (tokenModel == null) {
-      return false;
-    }
     sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
 
     if (sitePersonalAdd.getIsPost()) {
@@ -65,13 +63,11 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   }
 
   @Override
-  public boolean update(SitePersonalUpdate sitePersonalUpdate) {
+  public boolean update(SitePersonalUpdate sitePersonalUpdate) throws CommonException {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalUpdate, sitePersonal);
+
     TokenModel tokenModel = accountInfo.getUserInfo();
-    if (tokenModel == null) {
-      return false;
-    }
     sitePersonal.setModifierId(tokenModel.getLoginResp().getUserId());
     if (sitePersonalUpdate.getIsPost()) {
       sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
@@ -82,7 +78,8 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   }
 
   @Override
-  public List<SitePersonalSearchResp> search(SitePersonalSearchReq sitePersonalSearchReq) {
+  public List<SitePersonalSearchResp> search(SitePersonalSearchReq sitePersonalSearchReq)
+      throws CommonException {
     SitePersonalExample sitePersonalExample = new SitePersonalExample();
     Criteria criteria = sitePersonalExample.createCriteria();
 
@@ -117,17 +114,10 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     }
 
     if (start != null && end != null && start.after(end)) {
-      try {
-        throw new ParameterException("开始时间不能大于结束时间");
-      } catch (ParameterException e) {
-        e.printStackTrace();
-      }
+      throw new ParameterException("开始时间不能大于结束时间");
     }
 
     TokenModel tokenModel = accountInfo.getUserInfo();
-    if (tokenModel == null) {
-      return null;
-    }
     criteria.andCreatorIdEqualTo(tokenModel.getLoginResp().getUserId());
 
     sitePersonalExample.setOrderByClause(" create_time asc,sort_num asc");

@@ -2,9 +2,12 @@ package com.tim.ishou.site.component;
 
 import com.tim.auth.sdk.feign.AccountFeignClient;
 import com.tim.auth.sdk.vo.TokenModel;
+import com.tim.exception.type.CommonException;
+import com.tim.exception.type.ServiceException;
 import com.tim.message.MainCode;
 import com.tim.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
  * @description： 存储当前用户信息
  */
 @Component
+@Lazy
 public class AccountInfo {
 
   @Autowired
@@ -20,7 +24,7 @@ public class AccountInfo {
 
   private TokenModel tokenModel;
 
-  public TokenModel getUserInfo() {
+  public TokenModel getUserInfo() throws CommonException {
     if (tokenModel != null) {
       return tokenModel;
     }
@@ -31,6 +35,6 @@ public class AccountInfo {
       return tokenModelMessage.getData();
     }
 
-    return null;
+    throw new ServiceException(tokenModelMessage.getMsg());
   }
 }

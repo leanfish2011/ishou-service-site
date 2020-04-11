@@ -1,5 +1,6 @@
 package com.tim.ishou.site.controller;
 
+import com.tim.exception.type.CommonException;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.vo.SiteHomeAdd;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
@@ -70,7 +71,8 @@ public class SiteHomeController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq) {
+  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq)
+      throws CommonException {
     return Message.success(siteHomeService.search(siteHomeSearchReq));
   }
 }
