@@ -19,4 +19,9 @@ public class SitePersonalUpdate {
   private String remark;
 
   private String tag;
+
+  /**
+   * 发布到首页
+   */
+  private Boolean isPost = false;
 }

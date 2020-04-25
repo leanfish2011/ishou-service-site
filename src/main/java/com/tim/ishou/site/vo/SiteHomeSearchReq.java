@@ -4,19 +4,16 @@ import java.util.Date;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * @author：tim
- * @date：20-3-7 下午6:00
- * @description：
- */
 @Data
-public class SitePersonalSearchReq {
+public class SiteHomeSearchReq {
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createTimeStart;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createTimeEnd;
+
+  private String creatorId;
 
   private String name;
 
@@ -25,4 +22,5 @@ public class SitePersonalSearchReq {
   private String remark;
 
   private String tag;
+
 }

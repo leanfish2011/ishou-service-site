@@ -1,5 +1,7 @@
 package com.tim.ishou.site.controller;
 
+import com.tim.exception.type.CommonException;
+import com.tim.exception.type.ServiceException;
 import com.tim.ishou.site.service.SitePersonalService;
 import com.tim.ishou.site.vo.SitePersonalAdd;
 import com.tim.ishou.site.vo.SitePersonalSearchReq;
@@ -9,7 +11,6 @@ import com.tim.message.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class SitePersonalController {
 
   @ApiOperation(value = "新增网站")
   @RequestMapping(method = RequestMethod.POST)
-  public Message add(@RequestBody SitePersonalAdd sitePersonalAdd) {
+  public Message add(@RequestBody SitePersonalAdd sitePersonalAdd) throws CommonException {
     boolean isSuccess = sitePersonalService.add(sitePersonalAdd);
     if (!isSuccess) {
       return Message.error();
@@ -54,7 +55,8 @@ public class SitePersonalController {
 
   @ApiOperation(value = "修改网站")
   @RequestMapping(method = RequestMethod.PUT)
-  public Message update(SitePersonalUpdate sitePersonalUpdate) {
+  public Message update(@RequestBody SitePersonalUpdate sitePersonalUpdate)
+      throws CommonException {
     boolean isSuccess = sitePersonalService.update(sitePersonalUpdate);
     if (!isSuccess) {
       return Message.error();
@@ -71,7 +73,8 @@ public class SitePersonalController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SitePersonalSearchResp>> search(SitePersonalSearchReq sitePersonalSearchReq) {
+  public Message<List<SitePersonalSearchResp>> search(SitePersonalSearchReq sitePersonalSearchReq)
+      throws CommonException {
     return Message.success(sitePersonalService.search(sitePersonalSearchReq));
   }
 }
