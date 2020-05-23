@@ -75,38 +75,40 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     SiteHomeExample siteHomeExample = new SiteHomeExample();
     Criteria criteria = siteHomeExample.createCriteria();
 
-    if (!StringUtils.isEmpty(siteHomeSearchReq.getName())) {
-      criteria.andNameLike("%" + siteHomeSearchReq.getName() + "%");
-    }
+    if (siteHomeSearchReq != null) {
+      if (!StringUtils.isEmpty(siteHomeSearchReq.getName())) {
+        criteria.andNameLike("%" + siteHomeSearchReq.getName() + "%");
+      }
 
-    if (!StringUtils.isEmpty(siteHomeSearchReq.getUrl())) {
-      criteria.andUrlLike("%" + siteHomeSearchReq.getUrl() + "%");
-    }
+      if (!StringUtils.isEmpty(siteHomeSearchReq.getUrl())) {
+        criteria.andUrlLike("%" + siteHomeSearchReq.getUrl() + "%");
+      }
 
-    if (!StringUtils.isEmpty(siteHomeSearchReq.getRemark())) {
-      criteria.andRemarkLike("%" + siteHomeSearchReq.getRemark() + "%");
-    }
+      if (!StringUtils.isEmpty(siteHomeSearchReq.getRemark())) {
+        criteria.andRemarkLike("%" + siteHomeSearchReq.getRemark() + "%");
+      }
 
-    if (!StringUtils.isEmpty(siteHomeSearchReq.getTag())) {
-      criteria.andTagLike("%" + siteHomeSearchReq.getTag() + "%");
-    }
+      if (!StringUtils.isEmpty(siteHomeSearchReq.getTag())) {
+        criteria.andTagLike("%" + siteHomeSearchReq.getTag() + "%");
+      }
 
-    Date start = siteHomeSearchReq.getCreateTimeStart();
-    Date end = siteHomeSearchReq.getCreateTimeEnd();
-    if (start != null && end == null) {
-      criteria.andCreateTimeGreaterThanOrEqualTo(start);
-    }
+      Date start = siteHomeSearchReq.getCreateTimeStart();
+      Date end = siteHomeSearchReq.getCreateTimeEnd();
+      if (start != null && end == null) {
+        criteria.andCreateTimeGreaterThanOrEqualTo(start);
+      }
 
-    if (start == null && end != null) {
-      criteria.andCreateTimeLessThanOrEqualTo(end);
-    }
+      if (start == null && end != null) {
+        criteria.andCreateTimeLessThanOrEqualTo(end);
+      }
 
-    if (start != null && end != null) {
-      criteria.andCreateTimeBetween(start, end);
-    }
+      if (start != null && end != null) {
+        criteria.andCreateTimeBetween(start, end);
+      }
 
-    if (start != null && end != null && start.after(end)) {
-      throw new ParameterException("开始时间不能大于结束时间");
+      if (start != null && end != null && start.after(end)) {
+        throw new ParameterException("开始时间不能大于结束时间");
+      }
     }
 
     siteHomeExample.setOrderByClause(" create_time asc,sort_num asc");
