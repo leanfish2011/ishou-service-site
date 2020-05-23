@@ -76,7 +76,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, create_time, creator_id, modified_time, modifier_id, name, url, remark, tag, 
+    id, create_time, creator_id, modified_time, modifier_id, name, url, remark, tag,
     sort_num, visit_count
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap"
@@ -112,13 +112,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tim.ishou.site.po.SiteHome">
-    insert into site_home (id, create_time, creator_id, 
-      modified_time, modifier_id, name, 
-      url, remark, tag, sort_num, 
+    insert into site_home (id, create_time, creator_id,
+      modified_time, modifier_id, name,
+      url, remark, tag, sort_num,
       visit_count)
-    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 
-      #{modifiedTime,jdbcType=TIMESTAMP}, #{modifierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR},
+      #{modifiedTime,jdbcType=TIMESTAMP}, #{modifierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER},
       #{visitCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tim.ishou.site.po.SiteHome">
@@ -309,4 +309,13 @@
       visit_count = #{visitCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByKeyword" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from site_home
+    where name like CONCAT('%',#{keyword},'%')
+          or remark like CONCAT('%',#{keyword},'%')
+          or tag like CONCAT('%',#{keyword},'%')
+    order by create_time asc,sort_num asc
+  </select>
 </mapper>

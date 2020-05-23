@@ -29,4 +29,6 @@ public interface SiteHomeMapper {
   int updateByPrimaryKeySelective(SiteHome record);
 
   int updateByPrimaryKey(SiteHome record);
+
+  List<SiteHome> selectByKeyword(String keyword);
 }

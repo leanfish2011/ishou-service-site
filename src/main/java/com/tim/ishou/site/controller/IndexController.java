@@ -2,8 +2,10 @@ package com.tim.ishou.site.controller;
 
 import com.tim.exception.type.CommonException;
 import com.tim.ishou.site.service.SiteHomeService;
-import com.tim.ishou.site.vo.SiteHomeSearchReq;
+import com.tim.ishou.site.service.SiteService;
 import com.tim.ishou.site.vo.SiteHomeSearchResp;
+import com.tim.ishou.site.vo.SiteSearchReq;
+import com.tim.ishou.site.vo.SiteSearchResp;
 import com.tim.message.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +28,21 @@ public class IndexController {
   @Autowired
   private SiteHomeService siteHomeService;
 
-  @ApiOperation(value = "查询网站")
+  @Autowired
+  private SiteService siteService;
+
+  @ApiOperation(value = "列出网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq)
+  public Message<List<SiteHomeSearchResp>> list()
       throws CommonException {
-    return Message.success(siteHomeService.search(siteHomeSearchReq));
+    return Message.success(siteHomeService.search(null));
   }
+
+  @ApiOperation(value = "查询网站")
+  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  public Message<List<SiteSearchResp>> search(SiteSearchReq siteSearchReq)
+      throws CommonException {
+    return Message.success(siteService.search(siteSearchReq));
+  }
+
 }
