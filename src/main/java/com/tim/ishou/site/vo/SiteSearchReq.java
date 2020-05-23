@@ -12,5 +12,4 @@ public class SiteSearchReq {
 
   private String keyword;
 
-  private String token;
 }
