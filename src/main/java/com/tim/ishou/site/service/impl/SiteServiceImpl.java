@@ -25,7 +25,7 @@ public class SiteServiceImpl implements SiteService {
   private SiteHomeMapper siteHomeMapper;
 
   @Override
-  public List<SiteSearchResp> search(SiteSearchReq siteSearchReq) throws ParameterException {
+  public List<SiteSearchResp> search(SiteSearchReq siteSearchReq) {
     //默认搜索主页
     String keyword = siteSearchReq.getKeyword();
     if (StringUtils.isEmpty(keyword)) {

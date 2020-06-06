@@ -1,7 +1,6 @@
 package com.tim.ishou.site.service.impl;
 
 import com.tim.auth.sdk.constant.AuthConstant;
-import com.tim.exception.type.CommonException;
 import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.dao.SiteHomeMapper;
 import com.tim.ishou.site.po.SiteHome;
@@ -70,8 +69,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq)
-      throws CommonException {
+  public List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq) {
     SiteHomeExample siteHomeExample = new SiteHomeExample();
     Criteria criteria = siteHomeExample.createCriteria();
 
