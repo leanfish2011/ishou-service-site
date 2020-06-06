@@ -2,6 +2,7 @@ package com.tim.ishou.site.component;
 
 import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.ishou.site.exception.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Lazy
+@Slf4j
 public class AccountInfo {
 
   private TokenModel tokenModel;
 
   public TokenModel getUserInfo() {
     if (tokenModel == null) {
+      log.warn("未找到用户");
       throw new NotFoundException("未找到用户");
     }
 

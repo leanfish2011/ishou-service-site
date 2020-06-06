@@ -105,6 +105,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
       }
 
       if (start != null && end != null && start.after(end)) {
+        log.warn("开始时间不能大于结束时间。开始时间：{},结束时间：{}", start, end);
         throw new ParameterException("开始时间不能大于结束时间");
       }
     }

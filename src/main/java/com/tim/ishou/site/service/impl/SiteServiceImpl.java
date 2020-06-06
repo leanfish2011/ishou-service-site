@@ -8,6 +8,7 @@ import com.tim.ishou.site.vo.SiteSearchReq;
 import com.tim.ishou.site.vo.SiteSearchResp;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
  * @description：
  */
 @Service
+@Slf4j
 public class SiteServiceImpl implements SiteService {
 
   @Autowired
@@ -29,6 +31,7 @@ public class SiteServiceImpl implements SiteService {
     //默认搜索主页
     String keyword = siteSearchReq.getKeyword();
     if (StringUtils.isEmpty(keyword)) {
+      log.warn("关键词不能为空");
       throw new ParameterException("关键词不能为空！");
     }
 
