@@ -45,7 +45,7 @@ public class SiteHomeController {
 
   @ApiOperation(value = "修改网站")
   @RequestMapping(method = RequestMethod.PUT)
-  public Message update(SiteHomeUpdate siteHomeUpdate) {
+  public Message update(@RequestBody SiteHomeUpdate siteHomeUpdate) {
     siteHomeService.update(siteHomeUpdate);
     return Message.success();
   }
