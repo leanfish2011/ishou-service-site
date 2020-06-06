@@ -1,6 +1,5 @@
 package com.tim.ishou.site.controller;
 
-import com.tim.exception.type.CommonException;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.vo.SiteHomeAdd;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
@@ -33,33 +32,21 @@ public class SiteHomeController {
   @ApiOperation(value = "新增网站")
   @RequestMapping(method = RequestMethod.POST)
   public Message add(@RequestBody SiteHomeAdd siteHomeAdd) {
-    boolean isSuccess = siteHomeService.add(siteHomeAdd);
-    if (!isSuccess) {
-      return Message.error();
-    }
-
+    siteHomeService.add(siteHomeAdd);
     return Message.success();
   }
 
   @ApiOperation(value = "删除网站")
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public Message delete(@PathVariable String id) {
-    boolean isSuccess = siteHomeService.delete(id);
-    if (!isSuccess) {
-      return Message.error();
-    }
-
+    siteHomeService.delete(id);
     return Message.success();
   }
 
   @ApiOperation(value = "修改网站")
   @RequestMapping(method = RequestMethod.PUT)
   public Message update(SiteHomeUpdate siteHomeUpdate) {
-    boolean isSuccess = siteHomeService.update(siteHomeUpdate);
-    if (!isSuccess) {
-      return Message.error();
-    }
-
+    siteHomeService.update(siteHomeUpdate);
     return Message.success();
   }
 
@@ -71,8 +58,7 @@ public class SiteHomeController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq)
-      throws CommonException {
+  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq) {
     return Message.success(siteHomeService.search(siteHomeSearchReq));
   }
 }

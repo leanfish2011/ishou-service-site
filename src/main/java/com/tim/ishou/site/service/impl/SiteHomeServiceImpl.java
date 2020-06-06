@@ -35,7 +35,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   private SiteHomeMapper siteHomeMapper;
 
   @Override
-  public boolean add(SitePersonal sitePersonal) {
+  public Boolean add(SitePersonal sitePersonal) {
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(sitePersonal, siteHome);
     siteHome.setId(UUID.randomUUID().toString());
@@ -44,7 +44,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public boolean add(SiteHomeAdd siteHomeAdd) {
+  public Boolean add(SiteHomeAdd siteHomeAdd) {
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(siteHomeAdd, siteHome);
     siteHome.setId(UUID.randomUUID().toString());
@@ -54,7 +54,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public boolean update(SiteHomeUpdate siteHomeUpdate) {
+  public Boolean update(SiteHomeUpdate siteHomeUpdate) {
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(siteHomeUpdate, siteHome);
 
@@ -64,7 +64,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public boolean delete(String id) {
+  public Boolean delete(String id) {
     return siteHomeMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }
 

@@ -1,7 +1,6 @@
 package com.tim.ishou.site.service.impl;
 
 import com.tim.auth.sdk.vo.TokenModel;
-import com.tim.exception.type.CommonException;
 import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.component.AccountInfo;
 import com.tim.ishou.site.dao.SitePersonalMapper;
@@ -43,7 +42,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   private AccountInfo accountInfo;
 
   @Override
-  public boolean add(SitePersonalAdd sitePersonalAdd) throws CommonException {
+  public Boolean add(SitePersonalAdd sitePersonalAdd) {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalAdd, sitePersonal);
     sitePersonal.setId(UUID.randomUUID().toString());
@@ -58,12 +57,12 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   }
 
   @Override
-  public boolean delete(String id) {
+  public Boolean delete(String id) {
     return sitePersonalMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }
 
   @Override
-  public boolean update(SitePersonalUpdate sitePersonalUpdate) throws CommonException {
+  public Boolean update(SitePersonalUpdate sitePersonalUpdate) {
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalUpdate, sitePersonal);
 
@@ -78,8 +77,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   }
 
   @Override
-  public List<SitePersonalSearchResp> search(SitePersonalSearchReq sitePersonalSearchReq)
-      throws CommonException {
+  public List<SitePersonalSearchResp> search(SitePersonalSearchReq sitePersonalSearchReq) {
     SitePersonalExample sitePersonalExample = new SitePersonalExample();
     Criteria criteria = sitePersonalExample.createCriteria();
 

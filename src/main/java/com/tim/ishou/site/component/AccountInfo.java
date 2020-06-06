@@ -1,8 +1,7 @@
 package com.tim.ishou.site.component;
 
 import com.tim.auth.sdk.vo.TokenModel;
-import com.tim.exception.type.CommonException;
-import com.tim.exception.type.ServiceException;
+import com.tim.ishou.site.exception.NotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +16,12 @@ public class AccountInfo {
 
   private TokenModel tokenModel;
 
-  public TokenModel getUserInfo() throws CommonException {
-    if (tokenModel != null) {
-      return tokenModel;
+  public TokenModel getUserInfo() {
+    if (tokenModel == null) {
+      throw new NotFoundException("未找到用户");
     }
 
-    throw new ServiceException("未找到用户");
+    return tokenModel;
   }
 
   public void setTokenModel(TokenModel tokenModel) {

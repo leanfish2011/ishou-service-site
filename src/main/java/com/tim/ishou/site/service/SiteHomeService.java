@@ -14,13 +14,13 @@ public interface SiteHomeService {
    *
    * @param sitePersonal 个人网站
    */
-  boolean add(SitePersonal sitePersonal);
+  Boolean add(SitePersonal sitePersonal);
 
-  boolean add(SiteHomeAdd siteHomeAdd);
+  Boolean add(SiteHomeAdd siteHomeAdd);
 
-  boolean update(SiteHomeUpdate siteHomeUpdate);
+  Boolean update(SiteHomeUpdate siteHomeUpdate);
 
-  boolean delete(String id);
+  Boolean delete(String id);
 
   List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq);
 
