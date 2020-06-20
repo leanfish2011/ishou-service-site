@@ -836,6 +836,76 @@ public class SiteHomeExample {
       addCriterion("visit_count not between", value1, value2, "visitCount");
       return (Criteria) this;
     }
+
+    public Criteria andIconUrlIsNull() {
+      addCriterion("icon_url is null");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlIsNotNull() {
+      addCriterion("icon_url is not null");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlEqualTo(String value) {
+      addCriterion("icon_url =", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlNotEqualTo(String value) {
+      addCriterion("icon_url <>", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlGreaterThan(String value) {
+      addCriterion("icon_url >", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlGreaterThanOrEqualTo(String value) {
+      addCriterion("icon_url >=", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlLessThan(String value) {
+      addCriterion("icon_url <", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlLessThanOrEqualTo(String value) {
+      addCriterion("icon_url <=", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlLike(String value) {
+      addCriterion("icon_url like", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlNotLike(String value) {
+      addCriterion("icon_url not like", value, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlIn(List<String> values) {
+      addCriterion("icon_url in", values, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlNotIn(List<String> values) {
+      addCriterion("icon_url not in", values, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlBetween(String value1, String value2) {
+      addCriterion("icon_url between", value1, value2, "iconUrl");
+      return (Criteria) this;
+    }
+
+    public Criteria andIconUrlNotBetween(String value1, String value2) {
+      addCriterion("icon_url not between", value1, value2, "iconUrl");
+      return (Criteria) this;
+    }
   }
 
   public static class Criteria extends GeneratedCriteria {

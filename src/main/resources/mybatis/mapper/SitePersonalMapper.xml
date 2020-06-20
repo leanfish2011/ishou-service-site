@@ -13,6 +13,7 @@
     <result column="remark" property="remark" jdbcType="VARCHAR"/>
     <result column="tag" property="tag" jdbcType="VARCHAR"/>
     <result column="sort_num" property="sortNum" jdbcType="INTEGER"/>
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, create_time, creator_id, modified_time, modifier_id, name, url, remark, tag, 
-    sort_num
+    id, create_time, creator_id, modified_time, modifier_id, name, url, remark, tag,
+    sort_num, icon_url
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap"
     parameterType="com.tim.ishou.site.po.SitePersonalExample">
@@ -111,14 +112,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tim.ishou.site.po.SitePersonal">
-    insert into site_personal (id, create_time, creator_id, 
-      modified_time, modifier_id, name, 
-      url, remark, tag, sort_num
-      )
-    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 
-      #{modifiedTime,jdbcType=TIMESTAMP}, #{modifierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}
-      )
+    insert into site_personal (id, create_time, creator_id,
+      modified_time, modifier_id, name,
+      url, remark, tag, sort_num,
+      icon_url)
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR},
+      #{modifiedTime,jdbcType=TIMESTAMP}, #{modifierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER},
+      #{iconUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tim.ishou.site.po.SitePersonal">
     insert into site_personal
@@ -153,6 +154,9 @@
       <if test="sortNum != null">
         sort_num,
       </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -184,6 +188,9 @@
       </if>
       <if test="sortNum != null">
         #{sortNum,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,6 +234,9 @@
       <if test="record.sortNum != null">
         sort_num = #{record.sortNum,jdbcType=INTEGER},
       </if>
+      <if test="record.iconUrl != null">
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause"/>
@@ -243,7 +253,8 @@
     url = #{record.url,jdbcType=VARCHAR},
     remark = #{record.remark,jdbcType=VARCHAR},
     tag = #{record.tag,jdbcType=VARCHAR},
-    sort_num = #{record.sortNum,jdbcType=INTEGER}
+    sort_num = #{record.sortNum,jdbcType=INTEGER},
+    icon_url = #{record.iconUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause"/>
     </if>
@@ -278,6 +289,9 @@
       <if test="sortNum != null">
         sort_num = #{sortNum,jdbcType=INTEGER},
       </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -291,7 +305,8 @@
       url = #{url,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       tag = #{tag,jdbcType=VARCHAR},
-      sort_num = #{sortNum,jdbcType=INTEGER}
+      sort_num = #{sortNum,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -14,6 +14,7 @@
     <result column="tag" property="tag" jdbcType="VARCHAR"/>
     <result column="sort_num" property="sortNum" jdbcType="INTEGER"/>
     <result column="visit_count" property="visitCount" jdbcType="INTEGER"/>
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, create_time, creator_id, modified_time, modifier_id, name, url, remark, tag,
-    sort_num, visit_count
+    sort_num, visit_count, icon_url
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap"
     parameterType="com.tim.ishou.site.po.SiteHomeExample">
@@ -115,11 +116,11 @@
     insert into site_home (id, create_time, creator_id,
       modified_time, modifier_id, name,
       url, remark, tag, sort_num,
-      visit_count)
+      visit_count, icon_url)
     values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR},
       #{modifiedTime,jdbcType=TIMESTAMP}, #{modifierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{url,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER},
-      #{visitCount,jdbcType=INTEGER})
+      #{visitCount,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tim.ishou.site.po.SiteHome">
     insert into site_home
@@ -157,6 +158,9 @@
       <if test="visitCount != null">
         visit_count,
       </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -191,6 +195,9 @@
       </if>
       <if test="visitCount != null">
         #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -237,6 +244,9 @@
       <if test="record.visitCount != null">
         visit_count = #{record.visitCount,jdbcType=INTEGER},
       </if>
+      <if test="record.iconUrl != null">
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause"/>
@@ -254,7 +264,8 @@
     remark = #{record.remark,jdbcType=VARCHAR},
     tag = #{record.tag,jdbcType=VARCHAR},
     sort_num = #{record.sortNum,jdbcType=INTEGER},
-    visit_count = #{record.visitCount,jdbcType=INTEGER}
+    visit_count = #{record.visitCount,jdbcType=INTEGER},
+    icon_url = #{record.iconUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause"/>
     </if>
@@ -292,6 +303,9 @@
       <if test="visitCount != null">
         visit_count = #{visitCount,jdbcType=INTEGER},
       </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -306,7 +320,8 @@
       remark = #{remark,jdbcType=VARCHAR},
       tag = #{tag,jdbcType=VARCHAR},
       sort_num = #{sortNum,jdbcType=INTEGER},
-      visit_count = #{visitCount,jdbcType=INTEGER}
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByKeyword" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -314,8 +329,8 @@
     <include refid="Base_Column_List"/>
     from site_home
     where name like CONCAT('%',#{keyword},'%')
-          or remark like CONCAT('%',#{keyword},'%')
-          or tag like CONCAT('%',#{keyword},'%')
+    or remark like CONCAT('%',#{keyword},'%')
+    or tag like CONCAT('%',#{keyword},'%')
     order by create_time asc,sort_num asc
   </select>
 </mapper>
