@@ -50,6 +50,9 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     siteHome.setId(UUID.randomUUID().toString());
     siteHome.setCreatorId(AuthConstant.USER_ADMIN_ID);
 
+    //TODO 下载网站图标，存储到seaweedfs
+
+
     return siteHomeMapper.insertSelective(siteHome) > 0 ? true : false;
   }
 
