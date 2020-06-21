@@ -73,6 +73,9 @@ public class SiteHomeServiceImpl implements SiteHomeService {
 
   @Override
   public Boolean delete(String id) {
+    SiteHomeSearchResp siteHomeSearchResp = select(id);
+    urlStorageComponent.deleteIco(siteHomeSearchResp.getIconUrl());
+
     return siteHomeMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }
 

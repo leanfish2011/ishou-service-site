@@ -66,6 +66,9 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 
   @Override
   public Boolean delete(String id) {
+    SitePersonalSearchResp sitePersonalSearchResp = select(id);
+    urlStorageComponent.deleteIco(sitePersonalSearchResp.getIconUrl());
+
     return sitePersonalMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }
 
