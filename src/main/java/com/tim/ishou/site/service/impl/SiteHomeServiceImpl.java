@@ -2,6 +2,7 @@ package com.tim.ishou.site.service.impl;
 
 import com.tim.auth.sdk.constant.AuthConstant;
 import com.tim.exception.type.ParameterException;
+import com.tim.ishou.site.component.UrlStorageComponent;
 import com.tim.ishou.site.dao.SiteHomeMapper;
 import com.tim.ishou.site.po.SiteHome;
 import com.tim.ishou.site.po.SiteHomeExample;
@@ -34,6 +35,9 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   @Autowired
   private SiteHomeMapper siteHomeMapper;
 
+  @Autowired
+  private UrlStorageComponent urlStorageComponent;
+
   @Override
   public Boolean add(SitePersonal sitePersonal) {
     SiteHome siteHome = new SiteHome();
@@ -50,8 +54,9 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     siteHome.setId(UUID.randomUUID().toString());
     siteHome.setCreatorId(AuthConstant.USER_ADMIN_ID);
 
-    //TODO 下载网站图标，存储到seaweedfs
-
+    //网站图标存储到seaweedfs
+    String fileUrl = urlStorageComponent.icoStorage(siteHomeAdd.getUrl());
+    siteHome.setIconUrl(fileUrl);
 
     return siteHomeMapper.insertSelective(siteHome) > 0 ? true : false;
   }

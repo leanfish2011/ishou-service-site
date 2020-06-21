@@ -1,3 +1,5 @@
+package com.tim.ishou.site.tester;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Test;
@@ -10,7 +12,7 @@ import org.junit.Test;
 public class TestUlrMatch {
 
   @Test
-  public void testPrintMessage() {
+  public void testIconUrl() {
     String[] urls = {"https://www.cnblogs.com/leanfish/", "https://tool.lu/",
         "http://www.25os.com/default.html", "https://www.shiyanlou.com/"};
 

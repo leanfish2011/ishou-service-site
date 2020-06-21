@@ -30,4 +30,6 @@ public class SitePersonalSearchResp {
   private String tag;
 
   private Integer sortNum;
+
+  private String iconUrl;
 }

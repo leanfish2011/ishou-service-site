@@ -44,6 +44,12 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>net.anumbrella.seaweedfs</groupId>
+      <artifactId>seaweedfs-java-client</artifactId>
+      <version>0.0.2.RELEASE</version>
+    </dependency>
+
   </dependencies>
 
   <build>

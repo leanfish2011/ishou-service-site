@@ -3,6 +3,7 @@ package com.tim.ishou.site.service.impl;
 import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.component.AccountInfo;
+import com.tim.ishou.site.component.UrlStorageComponent;
 import com.tim.ishou.site.dao.SitePersonalMapper;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.po.SitePersonalExample;
@@ -41,6 +42,9 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   @Autowired
   private AccountInfo accountInfo;
 
+  @Autowired
+  private UrlStorageComponent urlStorageComponent;
+
   @Override
   public Boolean add(SitePersonalAdd sitePersonalAdd) {
     SitePersonal sitePersonal = new SitePersonal();
@@ -48,6 +52,10 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     sitePersonal.setId(UUID.randomUUID().toString());
     TokenModel tokenModel = accountInfo.getUserInfo();
     sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
+
+    //网站图标存储到seaweedfs
+    String fileUrl = urlStorageComponent.icoStorage(sitePersonalAdd.getUrl());
+    sitePersonal.setIconUrl(fileUrl);
 
     if (sitePersonalAdd.getIsPost()) {
       siteHomeService.add(sitePersonal);

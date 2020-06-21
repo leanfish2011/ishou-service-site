@@ -27,4 +27,6 @@ public class SiteHomeSearchResp {
   private Integer sortNum;
 
   private Integer visitCount;
+
+  private String iconUrl;
 }
