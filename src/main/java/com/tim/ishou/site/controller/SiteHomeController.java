@@ -9,6 +9,7 @@ import com.tim.message.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,7 +59,7 @@ public class SiteHomeController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> search(SiteHomeSearchReq siteHomeSearchReq) {
+  public Message<List<SiteHomeSearchResp>> search(@Valid SiteHomeSearchReq siteHomeSearchReq) {
     return Message.success(siteHomeService.search(siteHomeSearchReq));
   }
 }

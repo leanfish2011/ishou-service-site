@@ -119,6 +119,12 @@ public class SiteHomeServiceImpl implements SiteHomeService {
         log.warn("开始时间不能大于结束时间。开始时间：{},结束时间：{}", start, end);
         throw new ParameterException("开始时间不能大于结束时间");
       }
+
+      Integer pageNo = siteHomeSearchReq.getPageNo();
+      Integer pageSize = siteHomeSearchReq.getPageSize();
+      if (pageNo != null && pageSize != null) {
+        siteHomeExample.setLimitRange((pageNo - 1) * pageSize + "," + pageSize);
+      }
     }
 
     siteHomeExample.setOrderByClause(" create_time asc,sort_num asc");

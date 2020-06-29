@@ -12,6 +12,8 @@ public class SiteHomeExample {
 
   protected List<Criteria> oredCriteria;
 
+  protected String limitRange;
+
   public SiteHomeExample() {
     oredCriteria = new ArrayList<Criteria>();
   }
@@ -34,6 +36,14 @@ public class SiteHomeExample {
 
   public List<Criteria> getOredCriteria() {
     return oredCriteria;
+  }
+
+  public String getLimitRange() {
+    return limitRange;
+  }
+
+  public void setLimitRange(String limitRange) {
+    this.limitRange = limitRange;
   }
 
   public void or(Criteria criteria) {
