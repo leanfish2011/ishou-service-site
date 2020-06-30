@@ -10,6 +10,7 @@ import com.tim.ishou.site.po.SiteHomeExample.Criteria;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.vo.SiteHomeAdd;
+import com.tim.ishou.site.vo.SiteHomeSearchData;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
 import com.tim.ishou.site.vo.SiteHomeSearchResp;
 import com.tim.ishou.site.vo.SiteHomeUpdate;
@@ -80,7 +81,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   }
 
   @Override
-  public List<SiteHomeSearchResp> search(SiteHomeSearchReq siteHomeSearchReq) {
+  public SiteHomeSearchData search(SiteHomeSearchReq siteHomeSearchReq) {
     SiteHomeExample siteHomeExample = new SiteHomeExample();
     Criteria criteria = siteHomeExample.createCriteria();
 
@@ -138,7 +139,14 @@ public class SiteHomeServiceImpl implements SiteHomeService {
       list.add(siteHomeSearchResp);
     }
 
-    return list;
+    int allTotal = siteHomeMapper.countByExample(siteHomeExample);
+
+    SiteHomeSearchData siteHomeSearchData = new SiteHomeSearchData();
+    siteHomeSearchData.setAllTotal(allTotal);
+    siteHomeSearchData.setCurrentTotal(list.size());
+    siteHomeSearchData.setList(list);
+
+    return siteHomeSearchData;
   }
 
   @Override

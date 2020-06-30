@@ -2,13 +2,13 @@ package com.tim.ishou.site.controller;
 
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.vo.SiteHomeAdd;
+import com.tim.ishou.site.vo.SiteHomeSearchData;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
 import com.tim.ishou.site.vo.SiteHomeSearchResp;
 import com.tim.ishou.site.vo.SiteHomeUpdate;
 import com.tim.message.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +59,7 @@ public class SiteHomeController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> search(@Valid SiteHomeSearchReq siteHomeSearchReq) {
+  public Message<SiteHomeSearchData> search(@Valid SiteHomeSearchReq siteHomeSearchReq) {
     return Message.success(siteHomeService.search(siteHomeSearchReq));
   }
 }

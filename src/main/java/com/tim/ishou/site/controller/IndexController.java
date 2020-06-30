@@ -2,7 +2,7 @@ package com.tim.ishou.site.controller;
 
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.service.SiteService;
-import com.tim.ishou.site.vo.SiteHomeSearchResp;
+import com.tim.ishou.site.vo.SiteHomeSearchData;
 import com.tim.ishou.site.vo.SiteSearchReq;
 import com.tim.ishou.site.vo.SiteSearchResp;
 import com.tim.message.Message;
@@ -32,7 +32,7 @@ public class IndexController {
 
   @ApiOperation(value = "列出网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SiteHomeSearchResp>> list() {
+  public Message<SiteHomeSearchData> list() {
     return Message.success(siteHomeService.search(null));
   }
 
