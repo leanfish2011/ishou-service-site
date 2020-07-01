@@ -3,6 +3,7 @@ package com.tim.ishou.site.controller;
 import com.tim.exception.type.CommonException;
 import com.tim.ishou.site.service.SitePersonalService;
 import com.tim.ishou.site.vo.SitePersonalAdd;
+import com.tim.ishou.site.vo.SitePersonalSearchData;
 import com.tim.ishou.site.vo.SitePersonalSearchReq;
 import com.tim.ishou.site.vo.SitePersonalSearchResp;
 import com.tim.ishou.site.vo.SitePersonalUpdate;
@@ -59,7 +60,7 @@ public class SitePersonalController {
 
   @ApiOperation(value = "查询网站")
   @RequestMapping(method = RequestMethod.GET)
-  public Message<List<SitePersonalSearchResp>> search(SitePersonalSearchReq sitePersonalSearchReq) {
+  public Message<SitePersonalSearchData> search(SitePersonalSearchReq sitePersonalSearchReq) {
     return Message.success(sitePersonalService.search(sitePersonalSearchReq));
   }
 }

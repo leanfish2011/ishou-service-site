@@ -36,7 +36,7 @@ public class IndexController {
     return Message.success(siteHomeService.search(null));
   }
 
-  @ApiOperation(value = "查询网站")
+  @ApiOperation(value = "关键词检索网站")
   @RequestMapping(value = "/search", method = RequestMethod.GET)
   public Message<List<SiteSearchResp>> search(SiteSearchReq siteSearchReq) {
     return Message.success(siteService.search(siteSearchReq));
