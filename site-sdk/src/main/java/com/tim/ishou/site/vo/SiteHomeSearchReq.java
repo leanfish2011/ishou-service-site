@@ -4,7 +4,6 @@ import java.util.Date;
 import javax.validation.constraints.Min;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 @Data
 public class SiteHomeSearchReq {
