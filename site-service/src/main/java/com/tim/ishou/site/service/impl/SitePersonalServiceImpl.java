@@ -1,8 +1,8 @@
 package com.tim.ishou.site.service.impl;
 
+import com.tim.auth.sdk.component.AccountInfo;
 import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.exception.type.ParameterException;
-import com.tim.ishou.site.component.AccountInfo;
 import com.tim.ishou.site.component.UrlStorageComponent;
 import com.tim.ishou.site.dao.SitePersonalMapper;
 import com.tim.ishou.site.po.SitePersonal;

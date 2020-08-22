@@ -1,8 +1,8 @@
 package com.tim.ishou.site.interceptor;
 
+import com.tim.auth.sdk.component.AccountInfo;
 import com.tim.auth.sdk.feign.AccountFeignClient;
 import com.tim.auth.sdk.vo.TokenModel;
-import com.tim.ishou.site.component.AccountInfo;
 import com.tim.message.MainCode;
 import com.tim.message.Message;
 import com.tim.util.ResponseUtil;
