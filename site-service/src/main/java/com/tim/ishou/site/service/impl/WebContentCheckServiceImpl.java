@@ -9,6 +9,7 @@ import com.tim.system.sdk.feign.AnalyseFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class WebContentCheckServiceImpl implements WebContentCheckService {
 
   @Autowired
+  @Lazy
   private AnalyseFeignClient analyseFeignClient;
 
   @Autowired
