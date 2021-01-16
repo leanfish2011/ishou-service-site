@@ -2,6 +2,7 @@ package com.tim.ishou.site.service.impl;
 
 import com.tim.ishou.site.component.WebContentAnalyze;
 import com.tim.ishou.site.service.WebContentCheckService;
+import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.WebContentCheckVO;
 import com.tim.ishou.site.vo.WebContentVO;
 import com.tim.message.MainCode;
@@ -39,20 +40,23 @@ public class WebContentCheckServiceImpl implements WebContentCheckService {
       return webContentCheckVO;
     }
 
-    Message<Boolean> titleResult = analyseFeignClient.text(title);
-    if (titleResult != null && titleResult.getCode().equals(MainCode.SUCCESS) && !titleResult
-        .getData()) {
+    boolean titleLegal = isTextLegal(title);
+    if (!titleLegal) {
       webContentCheckVO.setIsPass(false);
       return webContentCheckVO;
     }
 
     String keyWords = webContentVO.getKeyWords();
-    if (isIllegal(webContentCheckVO, keyWords)) {
+    boolean keywordsLegal = isTextLegal(keyWords);
+    if (!keywordsLegal) {
+      webContentCheckVO.setIsPass(false);
       return webContentCheckVO;
     }
 
     String description = webContentVO.getDescription();
-    if (isIllegal(webContentCheckVO, description)) {
+    boolean descLegal = isTextLegal(description);
+    if (!descLegal) {
+      webContentCheckVO.setIsPass(false);
       return webContentCheckVO;
     }
 
@@ -61,16 +65,37 @@ public class WebContentCheckServiceImpl implements WebContentCheckService {
     return webContentCheckVO;
   }
 
-  private boolean isIllegal(WebContentCheckVO webContentCheckVO, String content) {
+  @Override
+  public boolean siteCheck(SiteCheckVO siteCheckVO) {
+    String url = siteCheckVO.getUrl();
+    if (StringUtils.isEmpty(url)) {
+      return false;
+    }
+    WebContentCheckVO webContentCheckVO = this.check(url);
+    if (!webContentCheckVO.getIsPass()) {
+      return false;
+    }
+
+    String name = siteCheckVO.getName();
+    String remark = siteCheckVO.getRemark();
+    String tag = siteCheckVO.getTag();
+    if (isTextLegal(name) && isTextLegal(remark) && isTextLegal(tag)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private boolean isTextLegal(String content) {
     if (StringUtils.isNotEmpty(content)) {
-      Message<Boolean> keywordsResult = analyseFeignClient.text(content);
-      if (keywordsResult != null && keywordsResult.getCode().equals(MainCode.SUCCESS)
-          && !keywordsResult.getData()) {
-        webContentCheckVO.setIsPass(false);
-        return true;
+      Message<Boolean> result = analyseFeignClient.text(content);
+      if (result != null && result.getCode().equals(MainCode.SUCCESS)
+          && !result.getData()) {
+        return false;
       }
     }
-    return false;
+
+    return true;
   }
 
 }

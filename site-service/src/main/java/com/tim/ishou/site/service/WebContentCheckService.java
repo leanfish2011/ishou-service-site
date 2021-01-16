@@ -1,5 +1,6 @@
 package com.tim.ishou.site.service;
 
+import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.WebContentCheckVO;
 
 /**
@@ -10,4 +11,6 @@ import com.tim.ishou.site.vo.WebContentCheckVO;
 public interface WebContentCheckService {
 
   WebContentCheckVO check(String url);
+
+  boolean siteCheck(SiteCheckVO siteCheckVO);
 }

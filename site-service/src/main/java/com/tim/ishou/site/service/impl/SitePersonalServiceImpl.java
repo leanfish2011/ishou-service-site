@@ -5,11 +5,14 @@ import com.tim.auth.sdk.vo.TokenModel;
 import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.component.UrlStorageComponent;
 import com.tim.ishou.site.dao.SitePersonalMapper;
+import com.tim.ishou.site.exception.IllegalException;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.po.SitePersonalExample;
 import com.tim.ishou.site.po.SitePersonalExample.Criteria;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.service.SitePersonalService;
+import com.tim.ishou.site.service.WebContentCheckService;
+import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.SitePersonalAdd;
 import com.tim.ishou.site.vo.SitePersonalSearchData;
 import com.tim.ishou.site.vo.SitePersonalSearchReq;
@@ -46,8 +49,17 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   @Autowired
   private UrlStorageComponent urlStorageComponent;
 
+  @Autowired
+  private WebContentCheckService webContentCheckService;
+
   @Override
   public Boolean add(SitePersonalAdd sitePersonalAdd) {
+    SiteCheckVO siteCheckVO = new SiteCheckVO();
+    BeanUtils.copyProperties(sitePersonalAdd, siteCheckVO);
+    if (!webContentCheckService.siteCheck(siteCheckVO)) {
+      throw new IllegalException();
+    }
+
     SitePersonal sitePersonal = new SitePersonal();
     BeanUtils.copyProperties(sitePersonalAdd, sitePersonal);
     sitePersonal.setId(UUID.randomUUID().toString());

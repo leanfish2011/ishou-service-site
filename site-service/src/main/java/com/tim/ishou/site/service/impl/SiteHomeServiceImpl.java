@@ -4,11 +4,14 @@ import com.tim.auth.sdk.constant.AuthConstant;
 import com.tim.exception.type.ParameterException;
 import com.tim.ishou.site.component.UrlStorageComponent;
 import com.tim.ishou.site.dao.SiteHomeMapper;
+import com.tim.ishou.site.exception.IllegalException;
 import com.tim.ishou.site.po.SiteHome;
 import com.tim.ishou.site.po.SiteHomeExample;
 import com.tim.ishou.site.po.SiteHomeExample.Criteria;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.service.SiteHomeService;
+import com.tim.ishou.site.service.WebContentCheckService;
+import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.SiteHomeAdd;
 import com.tim.ishou.site.vo.SiteHomeSearchData;
 import com.tim.ishou.site.vo.SiteHomeSearchReq;
@@ -39,8 +42,17 @@ public class SiteHomeServiceImpl implements SiteHomeService {
   @Autowired
   private UrlStorageComponent urlStorageComponent;
 
+  @Autowired
+  private WebContentCheckService webContentCheckService;
+
   @Override
   public Boolean add(SitePersonal sitePersonal) {
+    SiteCheckVO siteCheckVO = new SiteCheckVO();
+    BeanUtils.copyProperties(sitePersonal, siteCheckVO);
+    if (!webContentCheckService.siteCheck(siteCheckVO)) {
+      throw new IllegalException();
+    }
+
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(sitePersonal, siteHome);
     siteHome.setId(UUID.randomUUID().toString());
@@ -50,6 +62,12 @@ public class SiteHomeServiceImpl implements SiteHomeService {
 
   @Override
   public Boolean add(SiteHomeAdd siteHomeAdd) {
+    SiteCheckVO siteCheckVO = new SiteCheckVO();
+    BeanUtils.copyProperties(siteHomeAdd, siteCheckVO);
+    if (!webContentCheckService.siteCheck(siteCheckVO)) {
+      throw new IllegalException();
+    }
+
     SiteHome siteHome = new SiteHome();
     BeanUtils.copyProperties(siteHomeAdd, siteHome);
     siteHome.setId(UUID.randomUUID().toString());
