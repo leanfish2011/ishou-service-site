@@ -4,6 +4,7 @@ import com.tim.ishou.site.component.WebContentAnalyze;
 import com.tim.ishou.site.service.WebContentCheckService;
 import com.tim.ishou.site.vo.WebContentCheckVO;
 import com.tim.ishou.site.vo.WebContentVO;
+import com.tim.message.MainCode;
 import com.tim.message.Message;
 import com.tim.system.sdk.feign.AnalyseFeignClient;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,8 @@ public class WebContentCheckServiceImpl implements WebContentCheckService {
     }
 
     Message<Boolean> titleResult = analyseFeignClient.text(title);
-    if (!titleResult.getData()) {
+    if (titleResult != null && titleResult.getCode().equals(MainCode.SUCCESS) && !titleResult
+        .getData()) {
       webContentCheckVO.setIsPass(false);
       return webContentCheckVO;
     }
@@ -62,7 +64,8 @@ public class WebContentCheckServiceImpl implements WebContentCheckService {
   private boolean isIllegal(WebContentCheckVO webContentCheckVO, String content) {
     if (StringUtils.isNotEmpty(content)) {
       Message<Boolean> keywordsResult = analyseFeignClient.text(content);
-      if (!keywordsResult.getData()) {
+      if (keywordsResult != null && keywordsResult.getCode().equals(MainCode.SUCCESS)
+          && !keywordsResult.getData()) {
         webContentCheckVO.setIsPass(false);
         return true;
       }
