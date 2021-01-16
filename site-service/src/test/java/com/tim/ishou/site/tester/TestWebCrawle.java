@@ -22,7 +22,7 @@ import org.junit.Test;
  */
 public class TestWebCrawle {
 
-  @Test
+  //@Test
   public void getWeb() throws IOException {
     CloseableHttpClient httpClient = HttpClients.createDefault();//创建httpClient
     HttpGet httpGet = new HttpGet("http://www.cnblogs.com/");//创建httpget实例
@@ -61,7 +61,7 @@ public class TestWebCrawle {
 
   }
 
-  @Test
+  //@Test
   public void testUrls() throws IOException {
     List<String> urls = new ArrayList();
     urls.add("https://www.cnblogs.com11");
