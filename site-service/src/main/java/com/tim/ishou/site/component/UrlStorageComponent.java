@@ -53,8 +53,16 @@ public class UrlStorageComponent {
    * @return ico在seaweedfs中的地址
    */
   public String icoStorage(String url) {
-    String icoUrl = UrlUtil.getSiteIcoUrl(url);
-    return storage(icoUrl);
+    String icoUrlStorage;
+    try {
+      String icoUrl = UrlUtil.getSiteIcoUrl(url);
+      icoUrlStorage = storage(icoUrl);
+    } catch (Exception e) {
+      log.warn("存储网站图标失败：{}", e);
+      return "";
+    }
+
+    return icoUrlStorage;
   }
 
   /**
