@@ -18,6 +18,7 @@ CREATE TABLE `site_home` (
   `tag` varchar(500) DEFAULT NULL COMMENT '标签',
   `sort_num` int(11) DEFAULT NULL COMMENT '顺序',
   `visit_count` int(11) DEFAULT 0 COMMENT '访问次数',
+  `icon_url` VARCHAR(100) NULL COMMENT '网站图标地址'
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='首页网站收藏';
 
@@ -34,6 +35,7 @@ CREATE TABLE `site_personal` (
   `remark` varchar(500) DEFAULT NULL COMMENT '简介',
   `tag` varchar(500) DEFAULT NULL COMMENT '标签',
   `sort_num` int(11) DEFAULT NULL COMMENT '顺序',
+  `icon_url` VARCHAR(100) NULL COMMENT '网站图标地址'
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人网站收藏';
 
