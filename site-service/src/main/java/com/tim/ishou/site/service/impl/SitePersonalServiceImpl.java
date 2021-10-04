@@ -151,7 +151,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     TokenModel tokenModel = accountInfo.getUserInfo();
     criteria.andCreatorIdEqualTo(tokenModel.getLoginResp().getUserId());
 
-    sitePersonalExample.setOrderByClause(" create_time asc,sort_num asc");
+    sitePersonalExample.setOrderByClause(" create_time desc,sort_num asc");
 
     List<SitePersonal> sitePersonalList = sitePersonalMapper.selectByExample(sitePersonalExample);
     List<SitePersonalSearchResp> list = new ArrayList<>();

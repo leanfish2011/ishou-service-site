@@ -146,7 +146,7 @@ public class SiteHomeServiceImpl implements SiteHomeService {
       }
     }
 
-    siteHomeExample.setOrderByClause(" create_time asc,sort_num asc");
+    siteHomeExample.setOrderByClause(" create_time desc,sort_num asc");
 
     List<SiteHome> siteHomeList = siteHomeMapper.selectByExample(siteHomeExample);
     List<SiteHomeSearchResp> list = new ArrayList<>();
