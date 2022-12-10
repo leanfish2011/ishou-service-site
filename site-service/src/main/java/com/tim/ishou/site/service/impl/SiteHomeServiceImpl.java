@@ -11,6 +11,7 @@ import com.tim.ishou.site.po.SiteHomeExample.Criteria;
 import com.tim.ishou.site.po.SitePersonal;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.service.WebContentCheckService;
+import com.tim.ishou.site.util.UrlUtil;
 import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.SiteHomeAdd;
 import com.tim.ishou.site.vo.SiteHomeSearchData;
@@ -38,9 +39,6 @@ public class SiteHomeServiceImpl implements SiteHomeService {
 
   @Autowired
   private SiteHomeMapper siteHomeMapper;
-
-  @Autowired
-  private UrlStorageComponent urlStorageComponent;
 
   @Autowired
   private WebContentCheckService webContentCheckService;
@@ -73,8 +71,11 @@ public class SiteHomeServiceImpl implements SiteHomeService {
     siteHome.setId(UUID.randomUUID().toString());
     siteHome.setCreatorId(AuthConstant.USER_ADMIN_ID);
 
-    //网站图标存储到seaweedfs
-    String fileUrl = urlStorageComponent.icoStorage(siteHomeAdd.getUrl());
+//    //网站图标存储到seaweedfs
+//    String fileUrl = urlStorageComponent.icoStorage(siteHomeAdd.getUrl());
+//    siteHome.setIconUrl(fileUrl);
+
+    String fileUrl = UrlUtil.getSiteIcoUrl(siteHomeAdd.getUrl());
     siteHome.setIconUrl(fileUrl);
 
     return siteHomeMapper.insertSelective(siteHome) > 0 ? true : false;
@@ -92,8 +93,8 @@ public class SiteHomeServiceImpl implements SiteHomeService {
 
   @Override
   public Boolean delete(String id) {
-    SiteHomeSearchResp siteHomeSearchResp = select(id);
-    urlStorageComponent.deleteIco(siteHomeSearchResp.getIconUrl());
+    // SiteHomeSearchResp siteHomeSearchResp = select(id);
+    // urlStorageComponent.deleteIco(siteHomeSearchResp.getIconUrl());
 
     return siteHomeMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }

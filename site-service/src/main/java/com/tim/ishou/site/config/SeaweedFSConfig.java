@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @date：20-6-21 上午10:47
  * @description：
  */
-@Configuration
+// @Configuration
 public class SeaweedFSConfig {
 
   @Value("${seaweedfs.host:127.0.0.1}")
