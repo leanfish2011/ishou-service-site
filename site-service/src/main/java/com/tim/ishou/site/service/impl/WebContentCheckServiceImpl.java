@@ -33,7 +33,14 @@ public class WebContentCheckServiceImpl implements WebContentCheckService {
   @Override
   public WebContentCheckVO check(String url) {
     WebContentCheckVO webContentCheckVO = new WebContentCheckVO();
-    WebContentVO webContentVO = webContentAnalyze.analyzeWebContent(url);
+    WebContentVO webContentVO;
+    try {
+      webContentVO = webContentAnalyze.analyzeWebContent(url);
+    } catch (Exception e) {
+      webContentCheckVO.setIsPass(false);
+      return webContentCheckVO;
+    }
+
     String title = webContentVO.getTitle();
     if (StringUtils.isEmpty(title)) {
       webContentCheckVO.setIsPass(false);
