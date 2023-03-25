@@ -12,6 +12,7 @@ import com.tim.ishou.site.po.SitePersonalExample.Criteria;
 import com.tim.ishou.site.service.SiteHomeService;
 import com.tim.ishou.site.service.SitePersonalService;
 import com.tim.ishou.site.service.WebContentCheckService;
+import com.tim.ishou.site.util.UrlUtil;
 import com.tim.ishou.site.vo.SiteCheckVO;
 import com.tim.ishou.site.vo.SitePersonalAdd;
 import com.tim.ishou.site.vo.SitePersonalSearchData;
@@ -47,9 +48,6 @@ public class SitePersonalServiceImpl implements SitePersonalService {
   private AccountInfo accountInfo;
 
   @Autowired
-  private UrlStorageComponent urlStorageComponent;
-
-  @Autowired
   private WebContentCheckService webContentCheckService;
 
   @Override
@@ -66,8 +64,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     TokenModel tokenModel = accountInfo.getUserInfo();
     sitePersonal.setCreatorId(tokenModel.getLoginResp().getUserId());
 
-    //网站图标存储到seaweedfs
-    String fileUrl = urlStorageComponent.icoStorage(sitePersonalAdd.getUrl());
+    String fileUrl = UrlUtil.getSiteIcoUrl(sitePersonalAdd.getUrl());
     sitePersonal.setIconUrl(fileUrl);
 
     if (sitePersonalAdd.getIsPost()) {
@@ -79,8 +76,8 @@ public class SitePersonalServiceImpl implements SitePersonalService {
 
   @Override
   public Boolean delete(String id) {
-    SitePersonalSearchResp sitePersonalSearchResp = select(id);
-    urlStorageComponent.deleteIco(sitePersonalSearchResp.getIconUrl());
+    //SitePersonalSearchResp sitePersonalSearchResp = select(id);
+    //urlStorageComponent.deleteIco(sitePersonalSearchResp.getIconUrl());
 
     return sitePersonalMapper.deleteByPrimaryKey(id) > 0 ? true : false;
   }
@@ -151,7 +148,7 @@ public class SitePersonalServiceImpl implements SitePersonalService {
     TokenModel tokenModel = accountInfo.getUserInfo();
     criteria.andCreatorIdEqualTo(tokenModel.getLoginResp().getUserId());
 
-    sitePersonalExample.setOrderByClause(" create_time asc,sort_num asc");
+    sitePersonalExample.setOrderByClause(" create_time desc,sort_num asc");
 
     List<SitePersonal> sitePersonalList = sitePersonalMapper.selectByExample(sitePersonalExample);
     List<SitePersonalSearchResp> list = new ArrayList<>();

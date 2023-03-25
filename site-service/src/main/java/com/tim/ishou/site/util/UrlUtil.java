@@ -51,11 +51,43 @@ public class UrlUtil {
 
     Matcher m = p.matcher(url);
 
+    String iconUrl = null;
     if (m.find()) {
-      return m.group() + "favicon.ico";
+      iconUrl = m.group() + "favicon.ico";
+    }
+    if (!isVisit(iconUrl)) {
+      iconUrl = null;
     }
 
-    return null;
+    return iconUrl;
+  }
+
+  /**
+   * 判断url是否可以访问
+   *
+   * @param urlStr url
+   * @return 访问结果
+   */
+  public static boolean isVisit(String urlStr) {
+    HttpURLConnection con;
+    if (urlStr == null || urlStr.length() <= 0) {
+      return false;
+    }
+
+    try {
+      URL url = new URL(urlStr);
+      con = (HttpURLConnection) url.openConnection();
+      con.setUseCaches(false);
+      con.setConnectTimeout(3000);
+      int state = con.getResponseCode();
+      if (state == 200) {
+        return true;
+      }
+    } catch (Exception ex) {
+      return false;
+    }
+
+    return false;
   }
 
 }

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @date：20-6-21 下午5:35
  * @description：
  */
-@Component
+//@Component
 @Slf4j
 public class UrlStorageComponent {
 
